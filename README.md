@@ -242,7 +242,6 @@ The dashboard contains:
 
 ## Repository Structure
 
-```text
 yellow-taxi-data-engineering/
 │
 ├── dashboard/
@@ -255,7 +254,7 @@ yellow-taxi-data-engineering/
 ├── screenshots/
 │   └── nyc-yellow-taxi-dashboard.png
 │
-└── README.md
+└── README.md 
 
 ## Key Data Engineering Concepts Demonstrated
 
