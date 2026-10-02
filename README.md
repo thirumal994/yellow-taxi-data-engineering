@@ -85,6 +85,80 @@ NYC Yellow Taxi trip data available in the Databricks sample dataset.
 
 yellow_tripdata_2019-01.csv.gz
 
+---
+
+## Data Engineering Pipeline
+
+### 1. Bronze Layer — Raw Data Ingestion
+
+Notebook:
+
+`notebooks/01_Yellow_Taxi_Ingestion.py`
+
+The raw January 2019 CSV file is read using PySpark and stored as a Delta table:
+
+`yellow_taxi_bronze`
+
+The Bronze layer preserves the raw dataset before applying business validation rules.
+
+**Bronze record count:** 7,667,792
+
+---
+
+### 2. Silver Layer — Data Quality and Transformation
+
+Notebook:
+
+`notebooks/02_Yellow_Taxi_Silver.py`
+
+The Silver layer reads directly from:
+
+`yellow_taxi_bronze`
+
+The following data quality rules are applied:
+
+- January 2019 pickup date validation
+- Passenger count validation
+- Trip distance validation
+- Trip duration validation
+- Financial amount validation
+
+The following derived columns are created:
+
+- `pickup_date`
+- `pickup_hour`
+- `trip_duration_minutes`
+- `record_quality`
+- `source_file`
+
+The transformed data is stored as:
+
+`yellow_taxi_silver`
+
+---
+
+### 3. Gold Layer — Analytical Data
+
+Notebook:
+
+`notebooks/03_Yellow_Taxi_Gold.sql`
+
+The Gold layer contains analytical tables created from valid Silver records.
+
+Tables include:
+
+- `yellow_taxi_gold_summary`
+- `yellow_taxi_gold_hourly`
+- `yellow_taxi_gold_daily`
+- `yellow_taxi_gold_weekday`
+- `yellow_taxi_gold_pickup_locations`
+- `yellow_taxi_gold_pickup_locations_named`
+- `yellow_taxi_gold_borough`
+
+These tables are used for analytical reporting and dashboard visualizations.
+
+---
+
 
 ## Data Quality Validation
 
@@ -168,6 +242,7 @@ The dashboard contains:
 
 ## Repository Structure
 
+```text
 yellow-taxi-data-engineering/
 │
 ├── dashboard/
